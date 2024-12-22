@@ -1,20 +1,20 @@
 #include <stdio.h>
 
-// ¶¨Òå×î´óÊäÈë³¤¶È
+// å®šä¹‰æœ€å¤§è¾“å…¥é•¿åº¦
 #define MAX_LEN 103
-#define MAX_PARTS 100  // ÔÊĞí×î¶à·Ö¸îµÄ²¿·Ö
+#define MAX_PARTS 100  // å…è®¸æœ€å¤šåˆ†å‰²çš„éƒ¨åˆ†
 
-// ÊÖ¶¯¶ÁÈ¡Ò»ĞĞÊäÈë²¢´¦Àí»»ĞĞ·û
+// æ‰‹åŠ¨è¯»å–ä¸€è¡Œè¾“å…¥å¹¶å¤„ç†æ¢è¡Œç¬¦
 void read_line(char str[], int max_len) {
     int i = 0;
     char ch;
     while (i < max_len - 1 && (ch = getchar()) != '\n' && ch != EOF) {
         str[i++] = ch;
     }
-    str[i] = '\0';  // Ìí¼Ó½áÊø·û
+    str[i] = '\0';  // æ·»åŠ ç»“æŸç¬¦
 }
 
-// ÊÖ¶¯¼ÆËã×Ö·û´®³¤¶È
+// æ‰‹åŠ¨è®¡ç®—å­—ç¬¦ä¸²é•¿åº¦
 int my_strlen(char str[]) {
     int len = 0;
     while (str[len] != '\0') {
@@ -23,21 +23,21 @@ int my_strlen(char str[]) {
     return len;
 }
 
-// º¯Êı£ºÊµÏÖ×Ö·û´®µÄsplit²Ù×÷
+// å‡½æ•°ï¼šå®ç°å­—ç¬¦ä¸²çš„splitæ“ä½œ
 void split(char str[], char p, char result[][MAX_LEN], int* size) {
     int idx = 0, res_idx = 0, start = 0;
 
     while (str[idx] != '\0') {
         if (str[idx] == p) {
-            // **[start, idx) Õâ¶ÎÄÚÈİÎªÒ»¸ö×Ó´®
+            // **[start, idx) è¿™æ®µå†…å®¹ä¸ºä¸€ä¸ªå­ä¸²
             if (idx > start) {
                 for (int i = start; i < idx; i++) {
                     result[res_idx][i - start] = str[i];
                 }
-                result[res_idx][idx - start] = '\0';  // ÊÖ¶¯Ìí¼Ó×Ö·û´®½áÊø·û
+                result[res_idx][idx - start] = '\0';  // æ‰‹åŠ¨æ·»åŠ å­—ç¬¦ä¸²ç»“æŸç¬¦
             }
             else {
-                // ´¦ÀíÁ¬ĞøµÄ·Ö¸î×Ö·ûÇé¿ö£¬²úÉú¿Õ×Ö·û´®
+                // å¤„ç†è¿ç»­çš„åˆ†å‰²å­—ç¬¦æƒ…å†µï¼Œäº§ç”Ÿç©ºå­—ç¬¦ä¸²
                 result[res_idx][0] = '\0';
             }
             res_idx++;
@@ -45,7 +45,7 @@ void split(char str[], char p, char result[][MAX_LEN], int* size) {
         }
         idx++;
     }
-    // ´¦Àí×îºóÒ»¶Î
+    // å¤„ç†æœ€åä¸€æ®µ
     if (idx > start) {
         for (int i = start; i < idx; i++) {
             result[res_idx][i - start] = str[i];
@@ -53,48 +53,48 @@ void split(char str[], char p, char result[][MAX_LEN], int* size) {
         result[res_idx][idx - start] = '\0';
     }
     else {
-        result[res_idx][0] = '\0';  // Èç¹û×îºóÒ»¸ö×Ö·ûÊÇ·Ö¸î·û£¬²úÉú¿Õ×Ö·û´®
+        result[res_idx][0] = '\0';  // å¦‚æœæœ€åä¸€ä¸ªå­—ç¬¦æ˜¯åˆ†å‰²ç¬¦ï¼Œäº§ç”Ÿç©ºå­—ç¬¦ä¸²
     }
     *size = res_idx + 1;
 }
 
-// º¯Êı£ºÊµÏÖ×Ö·û´®Êı×éµÄjoin²Ù×÷
+// å‡½æ•°ï¼šå®ç°å­—ç¬¦ä¸²æ•°ç»„çš„joinæ“ä½œ
 void join(char result[][MAX_LEN], int size, char join_str[], char output[]) {
-    int output_idx = 0;  // ÓÃÀ´×·×ÙoutputµÄË÷Òı
-    int join_len = my_strlen(join_str);  // ÊÖ¶¯¼ÆËãjoin_strµÄ³¤¶È
+    int output_idx = 0;  // ç”¨æ¥è¿½è¸ªoutputçš„ç´¢å¼•
+    int join_len = my_strlen(join_str);  // æ‰‹åŠ¨è®¡ç®—join_strçš„é•¿åº¦
 
     for (int i = 0; i < size; i++) {
-        // ½«µ±Ç°×Ó´®¿½±´µ½outputÖĞ
-        int result_len = my_strlen(result[i]);  // ÊÖ¶¯¼ÆËãµ±Ç°×Ó´®µÄ³¤¶È
+        // å°†å½“å‰å­ä¸²æ‹·è´åˆ°outputä¸­
+        int result_len = my_strlen(result[i]);  // æ‰‹åŠ¨è®¡ç®—å½“å‰å­ä¸²çš„é•¿åº¦
         for (int j = 0; j < result_len; j++) {
             output[output_idx++] = result[i][j];
         }
 
-        // Èç¹û²»ÊÇ×îºóÒ»¸ö×Ó´®£¬¼ÓÈëÁ¬½Ó×Ö·û´®
+        // å¦‚æœä¸æ˜¯æœ€åä¸€ä¸ªå­ä¸²ï¼ŒåŠ å…¥è¿æ¥å­—ç¬¦ä¸²
         if (i < size - 1) {
             for (int j = 0; j < join_len; j++) {
                 output[output_idx++] = join_str[j];
             }
         }
     }
-    output[output_idx] = '\0';  // ÖÕÖ¹Êä³ö×Ö·û´®
+    output[output_idx] = '\0';  // ç»ˆæ­¢è¾“å‡ºå­—ç¬¦ä¸²
 }
 
 int main() {
     char str[MAX_LEN], p, join_str[MAX_LEN], result[MAX_PARTS][MAX_LEN], output[10000];
     int size = 0;
 
-    // ÊÖ¶¯¶ÁÈ¡ÊäÈë
-    read_line(str, MAX_LEN);   // ¶ÁÈ¡ÊäÈë×Ö·û´®
+    // æ‰‹åŠ¨è¯»å–è¾“å…¥
+    read_line(str, MAX_LEN);   // è¯»å–è¾“å…¥å­—ç¬¦ä¸²
 
-    p = getchar();  // ¶ÁÈ¡·Ö¸î×Ö·û
-    getchar();  // Ìø¹ı¿Õ¸ñ
-    read_line(join_str, MAX_LEN);  // ¶ÁÈ¡Á¬½Ó×Ö·û´®
+    p = getchar();  // è¯»å–åˆ†å‰²å­—ç¬¦
+    getchar();  // è·³è¿‡ç©ºæ ¼
+    read_line(join_str, MAX_LEN);  // è¯»å–è¿æ¥å­—ç¬¦ä¸²
 
-    // µ÷ÓÃsplitº¯Êı
+    // è°ƒç”¨splitå‡½æ•°
     split(str, p, result, &size);
 
-    // Êä³ösplitºóµÄÊı×é
+    // è¾“å‡ºsplitåçš„æ•°ç»„
     printf("[");
     for (int i = 0; i < size; i++) {
         if (i > 0) {
@@ -104,7 +104,7 @@ int main() {
     }
     printf("]\n");
 
-    // µ÷ÓÃjoinº¯Êı²¢Êä³ö½á¹û
+    // è°ƒç”¨joinå‡½æ•°å¹¶è¾“å‡ºç»“æœ
     join(result, size, join_str, output);
     printf("%s\n", output);
 
