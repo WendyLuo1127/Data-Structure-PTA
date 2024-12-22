@@ -2,17 +2,17 @@
 #include<string>
 #include<string.h>
 using namespace std;
-int BF(char S[], char T[], char A[])//BFËã·¨
+int BF(char S[], char T[], char A[])//BFç®—æ³•
 {
-	int i = 0, j = 0;//i±ê¼ÇÄ¸´®S£¬j±ê¼Ç×Ó´®T
+	int i = 0, j = 0;//iæ ‡è®°æ¯ä¸²Sï¼Œjæ ‡è®°å­ä¸²T
 	while (i < strlen(S) && j < strlen(A))
 	{
-		if (S[i] == T[j])//ÏàµÈ£¬¶¼ÍùÏÂ
+		if (S[i] == T[j])//ç›¸ç­‰ï¼Œéƒ½å¾€ä¸‹
 		{
 			i++;
 			j++;
 		}
-		else//²»µÈ£¬Ä¸´®»ØËİ
+		else//ä¸ç­‰ï¼Œæ¯ä¸²å›æº¯
 		{
 			i = i - j + 1;
 			j = 0;
@@ -26,22 +26,22 @@ int main()
 {
 	char a[501], b[501];
 	int n, flag = 0;
-	cin >> n;//´ı²â¶ÔÊı
+	cin >> n;//å¾…æµ‹å¯¹æ•°
 	for (int i = 0; i < n; i++)
 	{
-		cin >> a;//ÊäÈë²¡¶¾´®
+		cin >> a;//è¾“å…¥ç—…æ¯’ä¸²
 		getchar();
-		cin >> b;//ÊäÈëDNA
+		cin >> b;//è¾“å…¥DNA
 		char c[1000];
-		for (int i = 0; i < strlen(a); i++)//²¡¶¾´®Îª»·´®£¬±éÀúÃ¿ÖÖ¿ÉÄÜ
+		for (int i = 0; i < strlen(a); i++)//ç—…æ¯’ä¸²ä¸ºç¯ä¸²ï¼Œéå†æ¯ç§å¯èƒ½
 		{
 			int k = i;
-			for (int j = 0; j < strlen(a); j++)//c¸³ÖµÎª¸Ã´ÎÅĞ¶ÏµÄ²¡¶¾´®
+			for (int j = 0; j < strlen(a); j++)//cèµ‹å€¼ä¸ºè¯¥æ¬¡åˆ¤æ–­çš„ç—…æ¯’ä¸²
 			{
 				c[j] = a[k++];
 				if (k % strlen(a) == 0) k = 0;
 			}
-			if (BF(b, c, a) == 1)//ÓÃBFËã·¨ÅĞ¶Ï£¬²¡¶¾´®Îª×Ó´®£¬DNAÎªÄ¸´®
+			if (BF(b, c, a) == 1)//ç”¨BFç®—æ³•åˆ¤æ–­ï¼Œç—…æ¯’ä¸²ä¸ºå­ä¸²ï¼ŒDNAä¸ºæ¯ä¸²
 			{
 				flag = 1;
 				break;
